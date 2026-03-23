@@ -1,6 +1,4 @@
-from util.utilitarios import *
 import sqlite3
-from datetime import datetime
 
 class Dados:
     def __init__(self, name_database):
@@ -24,12 +22,12 @@ class Dados:
         cursor = conn.cursor()
         cursor.execute(f"SELECT * FROM {self.table_name}")
         getdado = cursor.fetchall()
-        print(type(getdado))
+        cursor.close()
+        return getdado
+    
+    def apagatd(self):
+        conn = self._connect()
+        cursor = conn.cursor()
+        cursor.execute(f"DELETE FROM {self.table_name}")
         conn.commit()
         cursor.close()
-
-dataagora = Meta.data_atual()
-hora = datetime.now()
-d1 = Dados('meusdados.db')
-d1.create_table('teste',dataagora)
-d1.get_valor()
